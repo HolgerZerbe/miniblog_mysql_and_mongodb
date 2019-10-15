@@ -1,0 +1,116 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    height: 120px;
+    width: 1200px;
+    margin: 0 auto 5px auto;
+    border: 1px solid black;
+    background: url(./sonne.jpeg);
+    background-size: cover;
+    color: darkslategrey;
+    font-size: 25px;
+    padding: 10px;
+}
+
+.header h2 {
+    text-shadow: 2px 2px whitesmoke;
+}
+
+.navbar {
+    margin-top: 50px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navlinks {
+    text-decoration: unset;
+    color: darkslategrey;
+    display: inline-block;
+    padding: 5px;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    border: 1px solid black;
+    background: url(./wasser.jpeg);
+    background-size: cover;
+    color: whitesmoke;
+    font-size: 25px;
+    padding: 10px;
+    min-height: 500px;
+}
+
+.content {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+#headline {
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.singlepost {
+    width: 90%;
+    background: whitesmoke;
+    color: darkslategrey;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid black;
+
+}
+
+.singlepost:nth-child(odd) {
+    margin-right: 40px;
+}
+
+.singlepost:nth-child(even) {
+    margin-left: 40px;
+
+}
+
+.commentHeadline {
+    display: flex;
+    justify-content: space-between;   
+}
+
+#titelEingabe, #textEingabe, #addPost {
+    box-sizing: border-box; 
+    font-size: 20px;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 5px;
+}
+
+#titelEingabe, #textEingabe {
+    width:100%; 
+}
+
+#addPost {
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.welcome {
+    width: 50%;
+    min-height: 200px;
+    line-height: 200px;
+    background-color: rgba(240, 219, 238, 0.5);
+    margin: 100px auto 0 auto;
+    text-align: center;
+    color: darkslategrey;
+}
