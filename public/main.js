@@ -12,8 +12,9 @@ const read = async () => {
 
     const result = await fetch('http://localhost:3000/blogposts');
     const data = await result.json();
+    const dataMysql = data.mysql;
 
-    for (comment of data) {
+    for (comment of dataMysql) {
         allcommments += `<div class="singlepost">
         <div class="commentHeadline">
         <h4>${comment.id} - ${comment.title}</h4>

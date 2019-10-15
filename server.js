@@ -1,9 +1,19 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const mongoose = require('mongoose');
+const Post = require('./Post');
+
 
 app.use(express.json());
 app.use('/', express.static('public'));
+
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGOURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 
 const connection = mysql.createConnection({
@@ -15,28 +25,46 @@ const connection = mysql.createConnection({
 
 
 
-app.get('/blogposts', (req, res) => {
+
+app.get('/blogposts', async (req, res) => {
+    let resultmysql = [];
+    console.log(1)
     const query = `select * from blogpost order by id desc`;
 
     connection.query(query,
-        (err, rows) => {
+        async (err, rows) => {
             if (err) {
                 console.log('Error: ' + err);
                 return;
             }
+            resultmysql = rows;
 
-            return res.send(rows);
+            const posts = await Post.find()
+
+
+            let result = {
+                mysql: resultmysql,
+                mongodb: posts
+
+            }
+            console.log(2)
+            return res.json(result)
         });
+
 })
 
 
 
 
-app.post('/blogposts', (req, res) => {
+app.post('/blogposts', async (req, res) => {
     if (!(req.body.title || req.body.content)) {
         return res.send({
             error: 'Title and content required'
         });
+    }
+    const data = {
+        titel : req.body.title,
+        content : req.body.content
     }
 
     const query = `insert into blogpost (
@@ -48,16 +76,20 @@ app.post('/blogposts', (req, res) => {
 
     connection.query(
         query, [req.body.title, req.body.content],
-        (err, result) => {
+        async (err, result) => {
             if (err) {
-                // falls ein Fehler definiert wurde, dann schauen wir mal
-                // was schiefgelaufen ist evtl. falsche mysql syntax
+
                 console.log('Error: ' + err);
                 return;
             }
+
+            const createdPosts = await Post.insertMany(data);
+
+            console.log(result, createdPosts)
             return res.send({
                 error: 0,
-                result: result.id
+                mysql: result.insertId,
+                mongodb: createdPosts
             });
         });
 
